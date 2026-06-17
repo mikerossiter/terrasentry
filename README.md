@@ -4,19 +4,30 @@
 
 # Terrasentry
 
-**Affordable IaC governance + AI policy guardrail for Terraform.** One tool,
-four policy dimensions, one number that nobody else gives you: a **cloud
-lock-in score**.
+**How locked-in to one cloud is your Terraform? Terrasentry gives you the answer as a single score.**
 
-Terrasentry is a single Go binary (MIT-licensed core) that scores your
-Terraform for cloud portability, security, cost, and company conventions —
-both as a CI gate *and*, on the roadmap, as a real-time guardrail inside AI
-coding assistants via an MCP server. No mandatory API calls; it runs fully
-offline / air-gapped.
+Terrasentry reads your Terraform plan and rates it from **0.00** (everything is
+tied to one cloud provider and would be painful to move) to **1.00** (built from
+portable, swappable pieces). It scores every resource, every module, and the
+whole project — so you can finally answer the question leadership keeps asking:
+*how hard would it actually be to leave AWS, Azure, or GCP?*
 
-> Status: **early MVP.** The cloud-portability scorer and `scan` command
-> are live today. Security, cost, conventions, the CI gate, and the MCP server
-> are scaffolded and on the roadmap below.
+It is one small open-source program (a single file, MIT-licensed). It runs
+entirely on your own machine — no internet connection, no account, no API key.
+
+> **Status: early MVP.** The portability score and the `scan` command work
+> today. Security checks, cost checks, naming-convention checks, the CI gate,
+> and the editor-integration server are planned — see the [roadmap](#roadmap).
+
+## What you get today
+
+- **One number for cloud lock-in** — run it on a project and see at a glance how
+  portable your infrastructure is.
+- **The worst offenders, named** — it points to the exact resources dragging the
+  score down (proprietary login services, serverless lock-in, and so on).
+- **A simple PASS / FAIL** — set a minimum score, and the scan tells you whether
+  the project clears it, ready to plug into code review later.
+- **Fully offline** — nothing ever leaves your machine.
 
 ---
 
@@ -155,6 +166,10 @@ Design decisions:
   documented contract, rather than parsing raw HCL (raw `.tf` parsing is a
   later add).
 - **Single binary, MIT core**, open-core model.
+- **Free, and bring-your-own-key.** Terrasentry is free and needs no API key to
+  run. Any future AI features (suggested fixes, the MCP server) use a key *you*
+  provide through an environment variable — the tool never bundles a key or
+  routes requests through anyone else's account.
 
 ## Roadmap
 
