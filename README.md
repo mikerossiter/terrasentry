@@ -15,6 +15,22 @@ whole project — so you can finally answer the question leadership keeps asking
 It is one small open-source program (a single file, MIT-licensed). It runs
 entirely on your own machine — no internet connection, no account, no API key.
 
+## Why portability matters
+
+Portability is freedom. The more portable your infrastructure, the more agile
+you stay in a changing market: you can move, re-price, or spread workloads
+across clouds when it suits you — when a provider hikes prices, when a better
+service shows up elsewhere, or when a customer or regulator demands a different
+region or vendor.
+
+A high lock-in score means the opposite. Leaving becomes slow and expensive, and
+you negotiate every renewal from a weak position because the provider knows you
+can't realistically walk away. Lock-in is not automatically bad — proprietary
+services are often the fastest way to ship — but it should be a **choice you
+make on purpose**, not a surprise you discover at renewal time. Terrasentry puts
+a number on that trade-off *before* it's baked in, so you can decide with eyes
+open how much flexibility you're trading for convenience.
+
 > **Status: early MVP.** The portability score and the `scan` command work
 > today. Security checks, cost checks, naming-convention checks, the CI gate,
 > and the editor-integration server are planned — see the [roadmap](#roadmap).
