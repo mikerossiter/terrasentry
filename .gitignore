@@ -1,0 +1,9 @@
+# Compiled binary
+/terrasentry
+
+# Terraform plan artifacts
+*.tfplan
+tfplan
+
+# Local config overrides
+*.local.yaml

@@ -1,0 +1,30 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "data.aws_caller_identity.current",
+          "mode": "data",
+          "type": "aws_caller_identity",
+          "name": "current",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": {}
+        },
+        {
+          "address": "data.aws_ami.ubuntu",
+          "mode": "data",
+          "type": "aws_ami",
+          "name": "ubuntu",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "most_recent": true }
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    { "address": "data.aws_caller_identity.current", "type": "aws_caller_identity", "change": { "actions": ["read"] } },
+    { "address": "data.aws_ami.ubuntu", "type": "aws_ami", "change": { "actions": ["read"] } }
+  ]
+}

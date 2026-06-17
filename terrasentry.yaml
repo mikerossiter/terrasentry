@@ -1,0 +1,27 @@
+# Terrasentry policy file. Everything here is optional — delete this file and
+# the tool runs with built-in defaults. Tune to your org's risk appetite.
+
+version: 1
+
+# Cloud portability / lock-in scoring (the live feature today).
+portability:
+  min_score: 0.6   # fail the repo if its aggregate lock-in score drops below this
+  warn_below: 0.4  # flag any single resource more locked-in than this
+  # dataset_path: ./my-portability-overrides.yaml  # optional: override the seed
+
+# --- Roadmap dimensions (config is read today; enforcement lands next) ---
+
+# Rough cost heuristics — no live pricing API needed.
+budget:
+  monthly_limit_usd: 1000
+
+# Company conventions: naming, required tags, approved module registry.
+conventions:
+  required_tags: [Environment, Owner, CostCenter]
+  naming_pattern: "^[a-z][a-z0-9-]+$"
+  approved_module_sources:
+    - "registry.terraform.io/terraform-aws-modules/*"
+
+# Security misconfiguration checks (may wrap Trivy/Checkov when present).
+security:
+  enabled: true

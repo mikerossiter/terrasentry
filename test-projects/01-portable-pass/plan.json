@@ -1,0 +1,66 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_vpc.main",
+          "mode": "managed",
+          "type": "aws_vpc",
+          "name": "main",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "cidr_block": "10.0.0.0/16" }
+        },
+        {
+          "address": "aws_subnet.app",
+          "mode": "managed",
+          "type": "aws_subnet",
+          "name": "app",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "cidr_block": "10.0.1.0/24" }
+        },
+        {
+          "address": "aws_instance.app",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "app",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "instance_type": "t3.medium" }
+        },
+        {
+          "address": "aws_ebs_volume.data",
+          "mode": "managed",
+          "type": "aws_ebs_volume",
+          "name": "data",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "size": 100 }
+        },
+        {
+          "address": "aws_s3_bucket.assets",
+          "mode": "managed",
+          "type": "aws_s3_bucket",
+          "name": "assets",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "bucket": "acme-portable-assets" }
+        },
+        {
+          "address": "aws_eks_cluster.cluster",
+          "mode": "managed",
+          "type": "aws_eks_cluster",
+          "name": "cluster",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "name": "acme-portable" }
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    { "address": "aws_vpc.main", "type": "aws_vpc", "change": { "actions": ["create"] } },
+    { "address": "aws_subnet.app", "type": "aws_subnet", "change": { "actions": ["create"] } },
+    { "address": "aws_instance.app", "type": "aws_instance", "change": { "actions": ["create"] } },
+    { "address": "aws_ebs_volume.data", "type": "aws_ebs_volume", "change": { "actions": ["create"] } },
+    { "address": "aws_s3_bucket.assets", "type": "aws_s3_bucket", "change": { "actions": ["create"] } },
+    { "address": "aws_eks_cluster.cluster", "type": "aws_eks_cluster", "change": { "actions": ["create"] } }
+  ]
+}

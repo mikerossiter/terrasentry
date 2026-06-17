@@ -1,0 +1,66 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "azurerm_linux_virtual_machine.app",
+          "mode": "managed",
+          "type": "azurerm_linux_virtual_machine",
+          "name": "app",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "values": { "name": "acme-app", "size": "Standard_B2s" }
+        },
+        {
+          "address": "azurerm_cosmosdb_account.db",
+          "mode": "managed",
+          "type": "azurerm_cosmosdb_account",
+          "name": "db",
+          "provider_name": "registry.terraform.io/hashicorp/azurerm",
+          "values": { "name": "acme-cosmos", "offer_type": "Standard" }
+        },
+        {
+          "address": "google_storage_bucket.assets",
+          "mode": "managed",
+          "type": "google_storage_bucket",
+          "name": "assets",
+          "provider_name": "registry.terraform.io/hashicorp/google",
+          "values": { "name": "acme-assets", "location": "EU" }
+        },
+        {
+          "address": "google_spanner_instance.ledger",
+          "mode": "managed",
+          "type": "google_spanner_instance",
+          "name": "ledger",
+          "provider_name": "registry.terraform.io/hashicorp/google",
+          "values": { "name": "acme-ledger", "num_nodes": 1 }
+        },
+        {
+          "address": "google_container_cluster.gke",
+          "mode": "managed",
+          "type": "google_container_cluster",
+          "name": "gke",
+          "provider_name": "registry.terraform.io/hashicorp/google",
+          "values": { "name": "acme-gke", "location": "europe-west2" }
+        },
+        {
+          "address": "aws_braket_quantum_task.experiment",
+          "mode": "managed",
+          "type": "aws_braket_quantum_task",
+          "name": "experiment",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "device_arn": "arn:aws:braket:::device/quantum-simulator/amazon/sv1" }
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    { "address": "azurerm_linux_virtual_machine.app", "type": "azurerm_linux_virtual_machine", "change": { "actions": ["create"] } },
+    { "address": "azurerm_cosmosdb_account.db", "type": "azurerm_cosmosdb_account", "change": { "actions": ["create"] } },
+    { "address": "google_storage_bucket.assets", "type": "google_storage_bucket", "change": { "actions": ["create"] } },
+    { "address": "google_spanner_instance.ledger", "type": "google_spanner_instance", "change": { "actions": ["create"] } },
+    { "address": "google_container_cluster.gke", "type": "google_container_cluster", "change": { "actions": ["create"] } },
+    { "address": "aws_braket_quantum_task.experiment", "type": "aws_braket_quantum_task", "change": { "actions": ["create"] } }
+  ]
+}

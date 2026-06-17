@@ -1,0 +1,100 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "planned_values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "aws_s3_bucket.assets",
+          "mode": "managed",
+          "type": "aws_s3_bucket",
+          "name": "assets",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "bucket": "acme-app-assets" }
+        },
+        {
+          "address": "aws_instance.app",
+          "mode": "managed",
+          "type": "aws_instance",
+          "name": "app",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "instance_type": "t3.medium" }
+        },
+        {
+          "address": "aws_dynamodb_table.sessions",
+          "mode": "managed",
+          "type": "aws_dynamodb_table",
+          "name": "sessions",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "name": "sessions", "billing_mode": "PAY_PER_REQUEST" }
+        },
+        {
+          "address": "aws_cognito_user_pool.users",
+          "mode": "managed",
+          "type": "aws_cognito_user_pool",
+          "name": "users",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "name": "acme-users" }
+        },
+        {
+          "address": "aws_lambda_function.api",
+          "mode": "managed",
+          "type": "aws_lambda_function",
+          "name": "api",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "function_name": "acme-api", "runtime": "nodejs20.x" }
+        },
+        {
+          "address": "aws_api_gateway_rest_api.public",
+          "mode": "managed",
+          "type": "aws_api_gateway_rest_api",
+          "name": "public",
+          "provider_name": "registry.terraform.io/hashicorp/aws",
+          "values": { "name": "acme-public-api" }
+        }
+      ],
+      "child_modules": [
+        {
+          "address": "module.network",
+          "resources": [
+            {
+              "address": "module.network.aws_vpc.main",
+              "mode": "managed",
+              "type": "aws_vpc",
+              "name": "main",
+              "provider_name": "registry.terraform.io/hashicorp/aws",
+              "values": { "cidr_block": "10.0.0.0/16" }
+            },
+            {
+              "address": "module.network.aws_subnet.private",
+              "mode": "managed",
+              "type": "aws_subnet",
+              "name": "private",
+              "provider_name": "registry.terraform.io/hashicorp/aws",
+              "values": { "cidr_block": "10.0.1.0/24" }
+            },
+            {
+              "address": "module.network.aws_eks_cluster.cluster",
+              "mode": "managed",
+              "type": "aws_eks_cluster",
+              "name": "cluster",
+              "provider_name": "registry.terraform.io/hashicorp/aws",
+              "values": { "name": "acme-cluster" }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    { "address": "aws_s3_bucket.assets", "type": "aws_s3_bucket", "change": { "actions": ["create"] } },
+    { "address": "aws_instance.app", "type": "aws_instance", "change": { "actions": ["create"] } },
+    { "address": "aws_dynamodb_table.sessions", "type": "aws_dynamodb_table", "change": { "actions": ["create"] } },
+    { "address": "aws_cognito_user_pool.users", "type": "aws_cognito_user_pool", "change": { "actions": ["create"] } },
+    { "address": "aws_lambda_function.api", "type": "aws_lambda_function", "change": { "actions": ["create"] } },
+    { "address": "aws_api_gateway_rest_api.public", "type": "aws_api_gateway_rest_api", "change": { "actions": ["create"] } },
+    { "address": "module.network.aws_vpc.main", "type": "aws_vpc", "change": { "actions": ["create"] } },
+    { "address": "module.network.aws_subnet.private", "type": "aws_subnet", "change": { "actions": ["create"] } },
+    { "address": "module.network.aws_eks_cluster.cluster", "type": "aws_eks_cluster", "change": { "actions": ["create"] } }
+  ]
+}

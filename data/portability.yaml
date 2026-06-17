@@ -1,0 +1,85 @@
+# Terrasentry cloud-portability seed dataset.
+#
+# score: 0.0 = fully cloud-locked (proprietary managed service, no equivalent
+#              elsewhere, expensive/risky to migrate off this cloud)
+#        1.0 = fully portable (open standard or commodity primitive with a
+#              direct equivalent on every other cloud / on-prem)
+#
+# Scores are deliberate, documented heuristics — not absolute truth. Override
+# per-org via portability.dataset_path in terrasentry.yaml. PRs welcome.
+
+defaults:
+  unknown: 0.5 # neutral score for resource types not yet in the dataset
+
+resources:
+  # ---------------------------------------------------------------- AWS -----
+  aws_instance: { score: 0.85, reason: "Generic VM; equivalent compute on every cloud" }
+  aws_ebs_volume: { score: 0.85, reason: "Block storage; commodity primitive everywhere" }
+  aws_efs_file_system: { score: 0.60, reason: "Managed NFS; portable protocol, proprietary control plane" }
+  aws_s3_bucket: { score: 0.80, reason: "Object storage; S3 API is a de-facto standard (MinIO, GCS interop)" }
+  aws_vpc: { score: 0.70, reason: "Networking concept is universal; config details differ per cloud" }
+  aws_subnet: { score: 0.70, reason: "Universal networking primitive; per-cloud config differs" }
+  aws_security_group: { score: 0.65, reason: "Firewall concept is universal; rules need re-authoring" }
+  aws_route53_zone: { score: 0.60, reason: "DNS is portable; records re-creatable, API is proprietary" }
+  aws_eks_cluster: { score: 0.75, reason: "Managed Kubernetes — workloads move cleanly between clouds" }
+  aws_ecr_repository: { score: 0.60, reason: "OCI image registry; standard format, proprietary endpoint" }
+  aws_elasticache_cluster: { score: 0.55, reason: "Redis/Memcached engine is portable; managed control plane is not" }
+  aws_db_instance: { score: 0.55, reason: "RDS; engine (Postgres/MySQL) portable, managed layer locks you in" }
+  aws_sqs_queue: { score: 0.40, reason: "Queue concept is portable; SQS API and semantics are proprietary" }
+  aws_sns_topic: { score: 0.35, reason: "Pub/sub concept portable; SNS API proprietary" }
+  aws_secretsmanager_secret: { score: 0.35, reason: "Secret store; proprietary API, migratable contents" }
+  aws_kms_key: { score: 0.30, reason: "Proprietary key management; envelope encryption ties to AWS" }
+  aws_iam_role: { score: 0.30, reason: "IAM model is AWS-specific; no portable equivalent" }
+  aws_iam_policy: { score: 0.30, reason: "AWS-specific policy language and principals" }
+  aws_cloudfront_distribution: { score: 0.25, reason: "CDN with proprietary config, behaviours, and edge functions" }
+  aws_lambda_function: { score: 0.20, reason: "Serverless runtime, triggers, and packaging are AWS-specific" }
+  aws_kinesis_stream: { score: 0.20, reason: "Proprietary streaming service; Kafka would be the portable choice" }
+  aws_redshift_cluster: { score: 0.20, reason: "Proprietary data warehouse; deep migration cost" }
+  aws_dynamodb_table: { score: 0.15, reason: "Proprietary NoSQL API and data model; no drop-in elsewhere" }
+  aws_api_gateway_rest_api: { score: 0.15, reason: "Proprietary API gateway config tightly coupled to AWS" }
+  aws_sfn_state_machine: { score: 0.10, reason: "Step Functions ASL is wholly AWS-proprietary" }
+  aws_glue_job: { score: 0.10, reason: "Proprietary ETL service; no portable runtime" }
+  aws_cognito_user_pool: { score: 0.05, reason: "Auth/identity fully proprietary; migrating users is painful" }
+
+  # -------------------------------------------------------------- Azure -----
+  azurerm_linux_virtual_machine: { score: 0.85, reason: "Generic VM; equivalent compute on every cloud" }
+  azurerm_virtual_machine: { score: 0.85, reason: "Generic VM; equivalent compute on every cloud" }
+  azurerm_managed_disk: { score: 0.85, reason: "Block storage; commodity primitive everywhere" }
+  azurerm_virtual_network: { score: 0.70, reason: "Networking concept is universal; config differs per cloud" }
+  azurerm_subnet: { score: 0.70, reason: "Universal networking primitive" }
+  azurerm_network_security_group: { score: 0.65, reason: "Firewall concept universal; rules re-authored" }
+  azurerm_kubernetes_cluster: { score: 0.75, reason: "AKS is managed Kubernetes — portable workloads" }
+  azurerm_postgresql_flexible_server: { score: 0.70, reason: "Managed Postgres; engine portable, control plane is not" }
+  azurerm_dns_zone: { score: 0.60, reason: "DNS is portable; records re-creatable" }
+  azurerm_storage_account: { score: 0.60, reason: "Blob storage; concept portable, API proprietary" }
+  azurerm_container_registry: { score: 0.60, reason: "OCI registry; standard images, proprietary endpoint" }
+  azurerm_redis_cache: { score: 0.55, reason: "Redis engine portable; managed service is not" }
+  azurerm_mssql_database: { score: 0.40, reason: "SQL Server portable in principle; managed Azure layer locks in" }
+  azurerm_servicebus_queue: { score: 0.35, reason: "Messaging concept portable; Service Bus API proprietary" }
+  azurerm_app_service: { score: 0.35, reason: "PaaS app hosting with Azure-specific config" }
+  azurerm_linux_web_app: { score: 0.35, reason: "PaaS app hosting with Azure-specific config" }
+  azurerm_key_vault: { score: 0.30, reason: "Proprietary secret/key management" }
+  azurerm_function_app: { score: 0.20, reason: "Serverless runtime and triggers are Azure-specific" }
+  azurerm_cosmosdb_account: { score: 0.10, reason: "Proprietary multi-model database; no drop-in elsewhere" }
+
+  # ---------------------------------------------------------------- GCP -----
+  google_compute_instance: { score: 0.85, reason: "Generic VM; equivalent compute on every cloud" }
+  google_compute_disk: { score: 0.85, reason: "Block storage; commodity primitive everywhere" }
+  google_storage_bucket: { score: 0.80, reason: "Object storage; GCS is S3-interoperable" }
+  google_compute_network: { score: 0.70, reason: "Networking concept universal; config differs" }
+  google_compute_subnetwork: { score: 0.70, reason: "Universal networking primitive" }
+  google_compute_firewall: { score: 0.65, reason: "Firewall concept universal; rules re-authored" }
+  google_container_cluster: { score: 0.75, reason: "GKE is managed Kubernetes — portable workloads" }
+  google_artifact_registry_repository: { score: 0.60, reason: "OCI registry; standard images, proprietary endpoint" }
+  google_dns_managed_zone: { score: 0.60, reason: "DNS is portable; records re-creatable" }
+  google_sql_database_instance: { score: 0.60, reason: "Managed Postgres/MySQL; engine portable, control plane not" }
+  google_redis_instance: { score: 0.55, reason: "Redis engine portable; managed Memorystore is not" }
+  google_cloud_run_service: { score: 0.45, reason: "Knative-based — more portable than typical serverless" }
+  google_pubsub_topic: { score: 0.35, reason: "Pub/sub concept portable; API proprietary" }
+  google_pubsub_subscription: { score: 0.35, reason: "Pub/sub concept portable; API proprietary" }
+  google_kms_crypto_key: { score: 0.30, reason: "Proprietary key management" }
+  google_cloudfunctions_function: { score: 0.20, reason: "Serverless runtime and triggers are GCP-specific" }
+  google_bigquery_dataset: { score: 0.10, reason: "Proprietary data warehouse; deep migration cost" }
+  google_bigquery_table: { score: 0.10, reason: "Proprietary data warehouse schema" }
+  google_firestore_database: { score: 0.10, reason: "Proprietary document database; no drop-in elsewhere" }
+  google_spanner_instance: { score: 0.05, reason: "Globally-distributed proprietary database; essentially un-portable" }
